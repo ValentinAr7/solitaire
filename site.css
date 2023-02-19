@@ -1,0 +1,7 @@
+.deck{
+    border: 1px solid black;
+    background-color: antiquewhite;
+    display: inline-block;
+    width: 50px;
+    height: 75px;
+}
