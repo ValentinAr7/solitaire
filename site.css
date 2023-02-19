@@ -1,3 +1,7 @@
+#board{
+    width: 700px;
+}
+
 .clearfix::after{
     display: table;
     content: '';
@@ -12,6 +16,14 @@
     height: 75px;
 }
 
-#stock, #foundation{
+#stock{
     float: left;    
+}
+
+#foundation{
+    float: right;    
+}
+
+#pile{
+    margin-top: 100px;
 }
