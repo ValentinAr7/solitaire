@@ -24,11 +24,15 @@ class Deck {
     }
 
     get topIndex(){
-        return this.cards.length - 1
+        return this.size - 1
+    }
+
+    get size(){
+        return this.size
     }
 
     canFlip() {
-        return this.cards.length > 0 && this.top.faceUp == false
+        return this.size > 0 && this.top.faceUp == false
     }
 
     canTake(index) {
@@ -84,7 +88,7 @@ class Stock extends Deck {
 class Waste extends Deck {
 
     canTake(index) {
-        return this.cards.length > 0 && index == this.topIndex;
+        return this.size > 0 && index == this.topIndex;
     }
 
     /** @type {Card | Card[]} */
@@ -97,6 +101,7 @@ class Waste extends Deck {
         if(this.canTake(index) == false) {
             throw new Error ('Cannot take card')
         }
+        this.cards.splice(index, this.size - index)
     }
 
     place(cards) {
