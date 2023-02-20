@@ -20,14 +20,18 @@ class Deck {
     }
 
     get top() {
-        return this.cards[this.cards.length - 1]
+        return this.cards[this.topIndex]
+    }
+
+    get topIndex(){
+        return this.cards.length - 1
     }
 
     canFlip() {
         return this.cards.length > 0 && this.top.faceUp == false
     }
 
-    canTake() {
+    canTake(index) {
         throw new TypeError('Cannot invoke abstract method')
 
     }
@@ -55,7 +59,7 @@ class Deck {
 
 class Stock extends Deck {
 
-    canTake() {
+    canTake(index) {
         return false;
     }
 
@@ -71,7 +75,32 @@ class Stock extends Deck {
     }
 
     place(cards) {
-        throw new Error('Cannot place')
+        throw new Error('Cannot place on stock')
+    }
+
+}
+
+
+class Waste extends Deck {
+
+    canTake(index) {
+        return this.cards.length > 0 && index == this.topIndex;
+    }
+
+    /** @type {Card | Card[]} */
+
+    canPlace(cards) {
+        return false;
+    }
+
+    take(index) {
+        if(this.canTake(index) == false) {
+            throw new Error ('Cannot take card')
+        }
+    }
+
+    place(cards) {
+        throw new Error('Cannot place on waste')
     }
 
 }
