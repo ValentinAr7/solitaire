@@ -1,4 +1,4 @@
- import { faces, suits, colors, Stock, Waste, Foundation, Pile } from '../cards.js'
+ import { faces, suits, colors, Stock, Waste, Foundation, Pile } from './cards.js'
  
  start()
  
@@ -22,5 +22,7 @@
             new Pile(),
         ] 
     }
+
+    console.log(state);
 
  }
