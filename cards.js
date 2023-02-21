@@ -89,12 +89,25 @@ class Deck {
     }
 
     take(index) {
-        throw new TypeError('Cannot invoke abstract method')
+        if (this.canTake(index) == false) {
+            throw new Error('Cannot take card')
+        }
+        this.cards.splice(index, this.size - index)
     }
 
+    /** @type {Card | Card[]} */
     place(cards) {
-        throw new TypeError('Cannot invoke abstract method')
-    }
+        if (this.canPlace(cards) == false) {
+            throw new Error('Cannot place cards')
+        }
+
+        if(Array.isArray(cards) == false){
+            cards = [cards];
+        }
+
+        this.cards.push(...cards)
+
+        this.cards.splice(index, this.size - index)    }
 }
 
 class Stock extends Deck {
@@ -108,16 +121,6 @@ class Stock extends Deck {
     canPlace(cards) {
         return false;
     }
-
-
-    take(index) {
-        throw new Error('Cannot take from stock')
-    }
-
-    place(cards) {
-        throw new Error('Cannot place on stock')
-    }
-
 }
 
 
@@ -132,27 +135,22 @@ class Waste extends Deck {
     canPlace(cards) {
         return false;
     }
-
-    take(index) {
-        if (this.canTake(index) == false) {
-            throw new Error('Cannot take card')
-        }
-        this.cards.splice(index, this.size - index)
-    }
-
-    place(cards) {
-        throw new Error('Cannot place on waste')
-    }
-
 }
 
 class Foundation extends Deck {
 
+    /** @type {keyof suits} */
+
     suit = null
 
-    constructor(cards, suits) {
+    /** 
+* @param {Card[]?} suit 
+* @param {keyof suits} face
+*/
+
+    constructor(cards, suit) {
         super(cards)
-        this.suits = suits
+        this.suit = suit
     }
     canTake(index) {
         return this.size > 0 && index == this.topIndex
@@ -165,19 +163,8 @@ class Foundation extends Deck {
             return false
         }
 
-        this.cards.suits == this.suits;
-        cards.face == faces.Ace && this.size > 0 || (cards.face + 1) == this.top.face;
+        return (cards.suit == this.suit &&
+            ((cards.face == faces.Ace && this.size > 0)
+                || (this.size > 0 && (cards.face + 1) == this.top.face)));
     }
-
-    take(index) {
-        if (this.canTake(index) == false) {
-            throw new Error('Cannot take card')
-        }
-        this.cards.splice(index, this.size - index)
-    }
-
-    place(cards) {
-        throw new Error('Cannot place on waste')
-    }
-
 }
