@@ -1,4 +1,4 @@
- import { createDeckElement } from '../dom.js';
+ import { createDeckElement } from './dom.js';
 import { faces, suits, colors, Stock, Waste, Foundation, Pile,} from './cards.js'
  import { createDeck, dealDeck, shuffleDeck } from './util.js';
  
