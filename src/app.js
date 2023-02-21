@@ -25,4 +25,7 @@
 
     console.log(state);
 
+    const deck = createDeck()
+    console.log(deck)
+
  }
