@@ -71,7 +71,7 @@ export class Deck {
     }
 
     get size() {
-        return this.size
+        return this.cards.length
     }
 
     canFlip() {

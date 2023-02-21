@@ -2,7 +2,7 @@ import { suits, faces, Card, Deck } from "./cards.js";
 
 export function createDeck() {
 
-    const deck = [];
+    const deck = new Deck();
 
     for(let suit of Object.values(suits)){
         for (let face of Object.values(faces)) {
