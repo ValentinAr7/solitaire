@@ -184,12 +184,13 @@ class Pile extends Deck {
     /** @type {Card | Card[]} */
 
     canPlace(cards) {
-        if (Array.isArray(cards)) {
-            return false
+        if (Array.isArray(cards) == false) {
+            cards = [cards];
         }
+    /** @type {Card} */
         const bottomCard = cards[0];
 
         return ((cards.face == faces.King && this.size == 0)
-                || (this.size > 0 && (bottomCard.face + 1) == this.top.face));
+                || (this.size > 0 && (bottomCard.face + 1) == this.top.face && colors[bottomCard.suit] != colors[this.top.suit]));
     }
 }
