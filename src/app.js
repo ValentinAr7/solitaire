@@ -1,5 +1,5 @@
  import { faces, suits, colors, Stock, Waste, Foundation, Pile,} from './cards.js'
- import { createDeck } from './util.js';
+ import { createDeck, shuffleDeck } from './util.js';
  
  start()
  
@@ -27,6 +27,7 @@
     console.log(state);
 
 const deck = createDeck()
+shuffleDeck(deck)
 console.log(deck);
 
  }
