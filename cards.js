@@ -1,4 +1,4 @@
-const faces = {
+export const faces = {
     Ace: 1,
     Two: 2,
     Three: 3,
@@ -14,21 +14,21 @@ const faces = {
     King: 13
 }
 
-const suits = {
+export const suits = {
     Clubs: 'clubs',
     Diamonds: 'diamonds',
     Hearts: 'hearts',
     Spades: 'spades'
 }
 
-const colors = {
+export const colors = {
     clubs: 'black',
     diamonds: 'red',
     hearts: 'red',
     spades: 'black'
 }
 
-class Card {
+export class Card {
     /** @type {keyof faces} */
     face = null
 
@@ -54,7 +54,7 @@ class Card {
 }
 
 
-class Deck {
+export class Deck {
     /** @type {Card[]?} */
     cards = []
 
@@ -117,7 +117,7 @@ class Deck {
         this.cards.splice(index, this.size - index)    }
 }
 
-class Stock extends Deck {
+export class Stock extends Deck {
 
     canTake(index) {
         return false;
@@ -131,7 +131,7 @@ class Stock extends Deck {
 }
 
 
-class Waste extends Deck {
+export class Waste extends Deck {
 
     canTake(index) {
         return this.size > 0 && index == this.topIndex;
@@ -144,7 +144,7 @@ class Waste extends Deck {
     }
 }
 
-class Foundation extends Deck {
+export class Foundation extends Deck {
 
     /** @type {keyof suits} */
 
@@ -176,7 +176,7 @@ class Foundation extends Deck {
     }
 }
 
-class Pile extends Deck {
+export class Pile extends Deck {
     canTake(index) {
         return this.size > 0 && this.cards[index].faceUp;
     }
