@@ -1,4 +1,4 @@
- import { faces, suits, colors, Stock, Waste, Foundation, Pile } from './cards.js'
+ import { faces, suits, colors, Stock, Waste, Foundation, Pile,} from './cards.js'
  
  start()
  
@@ -25,7 +25,7 @@
 
     console.log(state);
 
-    const deck = createDeck()
-    console.log(deck)
+const deck = createDeck()
+console.log(deck);
 
  }

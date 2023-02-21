@@ -1,4 +1,4 @@
-import { suits, faces,Card } from "./cards.js";
+import { suits, faces, Card } from "./cards.js";
 
 export function createDeck() {
 
