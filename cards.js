@@ -1,3 +1,19 @@
+const faces = {
+    Ace: 1,
+    Two: 2,
+    Three: 3,
+    Four: 4,
+    Five: 5,
+    Six: 6,
+    Seven: 7,
+    Eight: 8, 
+    Nine: 9,
+    Ten: 10,
+    Jack: 11,
+    Queen: 12,
+    King: 13
+}
+
 class Card {
     face = null
     suit = null
@@ -23,11 +39,11 @@ class Deck {
         return this.cards[this.topIndex]
     }
 
-    get topIndex(){
+    get topIndex() {
         return this.size - 1
     }
 
-    get size(){
+    get size() {
         return this.size
     }
 
@@ -98,8 +114,43 @@ class Waste extends Deck {
     }
 
     take(index) {
-        if(this.canTake(index) == false) {
-            throw new Error ('Cannot take card')
+        if (this.canTake(index) == false) {
+            throw new Error('Cannot take card')
+        }
+        this.cards.splice(index, this.size - index)
+    }
+
+    place(cards) {
+        throw new Error('Cannot place on waste')
+    }
+
+}
+
+class Foundation extends Deck {
+
+    suit = null
+
+    constructor(cards, suits) {
+        super(cards)
+        this.suits = suits
+    }
+    canTake(index) {
+        if (Array.isArray(cards)) {
+            return false
+        }
+
+        this.cards.suits == this.suits
+    }
+
+    /** @type {Card | Card[]} */
+
+    canPlace(cards) {
+
+    }
+
+    take(index) {
+        if (this.canTake(index) == false) {
+            throw new Error('Cannot take card')
         }
         this.cards.splice(index, this.size - index)
     }
