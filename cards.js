@@ -6,7 +6,7 @@ const faces = {
     Five: 5,
     Six: 6,
     Seven: 7,
-    Eight: 8, 
+    Eight: 8,
     Nine: 9,
     Ten: 10,
     Jack: 11,
@@ -14,7 +14,7 @@ const faces = {
     King: 13
 }
 
-const suits ={
+const suits = {
     Clubs: 'clubs',
     Diamonds: 'diamonds',
     Hearts: 'hearts',
@@ -22,9 +22,22 @@ const suits ={
 }
 
 class Card {
+    /** @type {keyof faces} */
     face = null
+
+    /** @type {keyof suits} */
     suit = null
+
+    /** @type {boolean} */
     faceUp = false
+
+
+    /** 
+    * @param {keyof faces} suit 
+    * @param {keyof suits} face
+    * @param {boolean} faceUp
+    */
+
 
     constructor(suit, face, faceUp = false) {
         this.suit = suit
@@ -142,17 +155,18 @@ class Foundation extends Deck {
         this.suits = suits
     }
     canTake(index) {
-        if (Array.isArray(cards)) {
-            return false
-        }
-
-        this.cards.suits == this.suits
+        return this.size > 0 && index == this.topIndex
     }
 
     /** @type {Card | Card[]} */
 
     canPlace(cards) {
+        if (Array.isArray(cards)) {
+            return false
+        }
 
+        this.cards.suits == this.suits;
+        cards.face == faces.Ace && this.size > 0 || (cards.face + 1) == this.top.face;
     }
 
     take(index) {
