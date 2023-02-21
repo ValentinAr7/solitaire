@@ -1,4 +1,4 @@
-import { colors } from './cards';
+import { colors } from './cards.js';
 
 const suits = {
     clubs: '&clubs',
@@ -33,6 +33,8 @@ export function createDeckElement(deck) {
         const top = i == deck.topIndex;
         element.appendChild(createCard(card, top))
     }
+
+    return element
 }
 
 
@@ -49,7 +51,7 @@ function createCard(card, top) {
         element.classList.add(colors[card.suit])
         content = `${suits[card.suit]}${faces[card.face]}`  
     } else {
-        content = `<span class="back"></span>`
+        content = `<span class="back"></span>`  
     }
 
     if (top) {

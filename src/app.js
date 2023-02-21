@@ -4,8 +4,7 @@
 const zones = {
    stock: document.getElementById('stock'),
    foundations: document.getElementById('foundation'),
-   piles: document.getElementById('piles')
-
+   piles: document.getElementById('pile')
 }
 
  start()
@@ -34,8 +33,6 @@ stateToBoard(state)
       createDeckElement(state.stock),
       createDeckElement(state.waste)
    )
-   zones.foundations.replaceChildren(...Object.values(state.foundations)
-   .map(createDeckElement ))
-
-   zones.piles.replaceChildren(state.piles.map(createDeckElement))
+   zones.foundations.replaceChildren(...Object.values(state.foundations).map(createDeckElement))
+   zones.piles.replaceChildren(...state.piles.map(createDeckElement))
  }
