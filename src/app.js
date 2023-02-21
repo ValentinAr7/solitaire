@@ -28,6 +28,10 @@
 
 const deck = createDeck()
 shuffleDeck(deck)
+shuffleDeck(deck)
+shuffleDeck(deck)
+shuffleDeck(deck)
+
 console.log(deck);
 
  }

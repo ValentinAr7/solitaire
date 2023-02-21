@@ -13,7 +13,9 @@ export function createDeck() {
     return deck
 }
 
-    /** @param {Deck} deck */
+    /** 
+     * @param {Deck} deck 
+     */
 
     export function shuffleDeck(deck){
         const stock = [];
@@ -22,5 +24,6 @@ export function createDeck() {
             const card = deck.cards.splice(Math.random() * deck.size | 0, 1)[0];
             stock.push(card)
         }
+
         deck.cards.push(...stock)
     }
