@@ -14,6 +14,13 @@ const faces = {
     King: 13
 }
 
+const suits ={
+    Clubs: 'clubs',
+    Diamonds: 'diamonds',
+    Hearts: 'hearts',
+    Spades: 'spades'
+}
+
 class Card {
     face = null
     suit = null
