@@ -1,4 +1,4 @@
-import { colors } from './src/cards';
+import { colors } from './cards';
 
 const suits = {
     clubs: '&clubs',

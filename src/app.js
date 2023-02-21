@@ -1,5 +1,4 @@
  import { createDeckElement } from './dom.js';
-import { faces, suits, colors, Stock, Waste, Foundation, Pile,} from './cards.js'
  import { createDeck, dealDeck, shuffleDeck } from './util.js';
  
 const zones = {
@@ -35,4 +34,8 @@ stateToBoard(state)
       createDeckElement(state.stock),
       createDeckElement(state.waste)
    )
+   zones.foundations.replaceChildren(...Object.values(state.foundations)
+   .map(createDeckElement ))
+
+   zones.piles.replaceChildren(state.piles.map(createDeckElement))
  }

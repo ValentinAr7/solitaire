@@ -66,3 +66,8 @@ html {
  border-radius: 5px;
  border: 1px solid black;
 }
+
+#stock .card:not(.top){
+    height: 1px;
+}
+
