@@ -1,10 +1,10 @@
 import { colors } from './cards.js';
 
 const suits = {
-    clubs: '&clubs',
-    diamonds: '&diams',
-    hearts: '&hearts',
-    spades: '&spades'
+    clubs: '&clubs;',
+    diamonds: '&diams;',
+    hearts: '&hearts;',
+    spades: '&spades;'
 }
 
 const faces = {
@@ -45,7 +45,7 @@ function createCard(card, top) {
     const element = document.createElement('div');
     element.classList.add('card')
 
-    let content = ''
+    let content = '';
 
     if (card.faceUp) {
         element.classList.add(colors[card.suit])
