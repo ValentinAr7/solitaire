@@ -10,7 +10,7 @@ export function createDeck() {
         }
     }
 
-    return deck
+    return deck;
 }
 
 /** 
@@ -33,7 +33,7 @@ export function shuffleDeck(deck) {
 * @returns {GameState } 
 */
 
-export function dealDeck() {
+export function dealDeck(deck) {
 
     const index = [
         new Stock(),
