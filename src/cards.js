@@ -99,7 +99,7 @@ export class Deck {
         if (this.canTake(index) == false) {
             throw new Error('Cannot take card')
         }
-        this.cards.splice(index, this.size - index)
+        return this.cards.splice(index, this.size - index)
     }
 
     /** @type {Card | Card[]} */
@@ -122,7 +122,7 @@ export class Stock extends Deck {
     canFlip() {
         return true
     }
-    
+
     canTake(index) {
         return false;
     }
@@ -170,13 +170,15 @@ export class Foundation extends Deck {
     /** @type {Card | Card[]} */
 
     canPlace(cards) {
-        if (!cards || Array.isArray(cards)) {
+        if (!cards || (Array.isArray(cards) && cards.length > 1)) {
             return false
         }
 
-        return (cards.suit == this.suit &&
-            ((cards.face == faces.Ace && this.size == 0)
-                || (this.size > 0 && (cards.face + 1) == this.top.face)));
+        const card = Array.isArray(cards ? cards[0] : cards)
+
+        return (card.suit == this.suit &&
+            ((card.face == faces.Ace && this.size == 0)
+                || (this.size > 0 && (card.face + 1) == this.top.face)));
     }
 }
 
