@@ -23,10 +23,14 @@ const faces = {
     13: 'K',
 }; 
 
-/** @param {import ('./cards.js').Deck} deck */
+/** @param {GameDeck} deck */
 export function createDeckElement(deck, index) {
     const element = document.createElement('article');
     element.className = 'deck'
+
+    if(deck.moves.flip || deck.moves.place || deck.moves.take.length > 0){
+        element.classList.add('active');
+    }
 
     if(deck instanceof Stock){
         element.dataset.type = 'stock'
@@ -81,3 +85,5 @@ function createCard(card, top) {
 
     return element 
 }
+
+/** @typedef {import('./cards.js').Deck & {moves: {flip: boolean, take: number[], place: boolean}}} GameDeck */
