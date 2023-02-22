@@ -83,7 +83,6 @@ export function dealDeck(deck) {
 
     state.stock.cards.push(...deck.cards)       //put the rest of the piles into the stock
 
-    return {index, state}                             //return state
 }
 
 /**
