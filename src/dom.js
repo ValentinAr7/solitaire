@@ -1,4 +1,4 @@
-import { colors, Foundation } from './cards.js';
+import { colors, Foundation, Pile, Stock, Waste } from './cards.js';
 
 const suits = {
     clubs: '&clubs;',
@@ -24,16 +24,27 @@ const faces = {
 }; 
 
 /** @param {import ('./cards.js').Deck} deck */
-export function createDeckElement(deck) {
+export function createDeckElement(deck, index) {
     const element = document.createElement('article');
     element.className = 'deck'
 
-    let cards = deck.cards;
+    if(deck instanceof Stock){
+        element.dataset.type = 'stock'
+    } else if(deck instanceof Waste){
+        element.dataset.type = 'waste'
+    } else if(deck instanceof Foundation){
+        element.dataset.type = 'foundation'
+    } else if (deck instanceof Pile){
+        element.dataset.type = 'pile'
+        element.dataset.index = index
+    }
+
+    let cards = deck.cards
 
     if(deck.size > 1 && (deck instanceof Stock || deck instanceof Waste || deck instanceof Foundation)){
         const visibleCount = Math.ceil((deck.size - 1) / 5);
-        cards = new Array(visibleCount)
-        cards.fill({faceUp: false})
+        cards = new Array(visibleCount);
+        cards.fill({faceUp: false});
         cards.push(deck.top)
     }
 

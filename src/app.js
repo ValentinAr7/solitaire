@@ -7,6 +7,8 @@ const zones = {
    piles: document.getElementById('pile')
 }
 
+zones.stock.addEventListener('click', onClick)
+
  start()
  
  function start() {
@@ -36,3 +38,9 @@ stateToBoard(state)
    zones.foundations.replaceChildren(...Object.values(state.foundations).map(createDeckElement))
    zones.piles.replaceChildren(...state.piles.map(createDeckElement))
  }
+
+ function onClick(event){
+   
+ }
+
+
