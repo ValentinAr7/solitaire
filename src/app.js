@@ -6,8 +6,7 @@ const zones = {
    foundations: document.getElementById('foundation'),
    piles: document.getElementById('pile')
 }
-
-zones.stock.addEventListener('click', onClick)
+document.getElementById('board').addEventListener('click', onClick)
 
  start()
  
@@ -39,8 +38,31 @@ stateToBoard(state)
    zones.piles.replaceChildren(...state.piles.map(createDeckElement))
  }
 
- function onClick(event){
-   
+ function onClick(event){        //on click event 
+   let deck = null;
+      if(event.target.classList.contains('deck') ){
+         deck = event.target         
+      } else if(event.target.classList.contains('card')){
+         deck = event.target.parentElement
+      } 
+      else if(event.target.classList.contains('back')){
+         deck = event.target.parentElement.parentElement
+      } 
+
+      if(deck != null){
+         const type = deck.dataset.type
+         let suit = '';
+         let index = -1;
+
+         if(type == 'foundation'){
+            suit = deck.dataset.suit
+         } else if (type == 'pile'){
+            index = Number(deck.dataset.index)
+         }
+
+         console.log('clicked');
+
+      }
  }
 
 
