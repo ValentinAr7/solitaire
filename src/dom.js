@@ -5,7 +5,7 @@ const suits = {
     diamonds: '&diams;',
     hearts: '&hearts;',
     spades: '&spades;'
-}
+};
 
 const faces = {
     1: 'A',
@@ -21,17 +21,19 @@ const faces = {
     11: 'J',
     12: 'Q',
     13: 'K',
-}; 
+};
 
-/** @param {GameDeck} deck */
+/**
+ * 
+ * @param {GameDeck} deck 
+ */
 export function createDeckElement(deck, index) {
     const element = document.createElement('article');
-    element.className = 'deck'
+    element.className = 'deck';
 
-    let activeCards = false
+    let activeCards = false;
 
     if (deck.moves.flip || deck.moves.place || deck.moves.take.length > 0) {
-        
 
         if (deck.size == 0 || deck.moves.place) {
             element.classList.add('active');
@@ -48,68 +50,69 @@ export function createDeckElement(deck, index) {
         }
     }
 
-    if(deck instanceof Stock){
+    if (deck instanceof Stock) {
         element.dataset.type = 'stock';
-
-    } else if(deck instanceof Waste){
+    } else if (deck instanceof Waste) {
         element.dataset.type = 'waste';
-
-    } else if(deck instanceof Foundation){
+    } else if (deck instanceof Foundation) {
         element.dataset.type = 'foundations';
-
-    } else if (deck instanceof Pile){
+        element.dataset.suit = deck.suit;
+    } else if (deck instanceof Pile) {
         element.dataset.type = 'piles';
-        element.dataset.index = index
+        element.dataset.index = index;
     }
 
-    let cards = deck.cards
+    let cards = deck.cards;
 
-    // if(deck.size > 1 && (deck instanceof Stock || deck instanceof Waste || deck instanceof Foundation)){
-    //     const visibleCount = Math.ceil((deck.size - 1) / 5);
-    //     cards = new Array(visibleCount);
-    //     cards.fill({faceUp: false});
-    //     cards.push(deck.top)
-    // }
+    // TODO
+    /*
+    if (deck.size > 1 && (deck instanceof Stock || deck instanceof Waste || deck instanceof Foundation)) {
+        const visibleCount = Math.ceil((deck.size - 1) / 5);
+        cards = new Array(visibleCount);
+        cards.fill({ faceUp: false });
+        cards.push(deck.top);
+    }
+    */
 
-    for(let i = 0; i < cards.length; i++){
-        const card = cards[i]
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
         const top = i == cards.length - 1;
         const active = activeCards && ((top && deck.canFlip()) || deck.canTake(i));
-        element.appendChild(createCard(card, top, i, active))
+        element.appendChild(createCard(card, top, i, active));
     }
 
-    return element
+    return element;
 }
 
-
-/** @param {import ('./cards.js').Card} card */
-/** @param {boolean} top */
-
+/**
+ * 
+ * @param {import('./cards.js').Card} card 
+ * @param {boolean} top 
+ */
 function createCard(card, top, index, active) {
     const element = document.createElement('div');
-    element.classList.add('card')
-    if(active){
-    element.classList.add('active')
-
+    element.classList.add('card');
+    if (active) {
+        element.classList.add('active');
     }
-
-    element.dataset.index = index
+    element.dataset.index = index;
 
     let content = '';
 
     if (card.faceUp) {
-        element.classList.add(colors[card.suit])
-        content = `${suits[card.suit]}${faces[card.face]}`  
+        element.classList.add(colors[card.suit]);
+        content = `${suits[card.suit]}${faces[card.face]}`;
     } else {
-        content = `<span class="back${top ? 'top' : ''}"></span>`  
+        content = `<span class="back${top ? ' top' : ''}"></span>`;
     }
 
     if (top) {
         element.classList.add('top');
     }
-    element.innerHTML = content
 
-    return element 
+    element.innerHTML = content;
+
+    return element;
 }
 
 /** @typedef {import('./cards.js').Deck & {moves: {flip: boolean, take: number[], place: boolean}}} GameDeck */

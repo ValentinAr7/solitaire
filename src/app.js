@@ -135,32 +135,31 @@ function onClick(event) {
 function findDeck(type, index, suit) {
    let deck = null;
    if (type == 'piles') {
-      deck = state[type][index]
+       deck = state[type][index];
    } else if (type == 'foundations') {
-      deck = state[type][suit];
+       deck = state[type][suit];
    } else {
-      deck = state[type]
+       deck = state[type];
    }
-   return deck
+   return deck;
 }
 
 function flipStock() {
    if (state.stock.size == 0) {
-      const cards = [...state.waste.cards];
-      state.waste.cards.length = 0;
-      cards.reverse();
-      cards.forEach(c => c.faceUp = false)
-      state.stock.cards.push(...cards)
+       const cards = [...state.waste.cards];
+       state.waste.cards.length = 0;
+       cards.reverse();
+       cards.forEach(c => c.faceUp = false);
+       state.stock.cards.push(...cards);
    } else {
-      state.stock.flip()
-      const card = state.stock.cards.pop()
-      state.waste.cards.push(card)
+       state.stock.flip();
+       const card = state.stock.cards.pop();
+       state.waste.cards.push(card);
    }
 }
 
-function flipPile() {
-   state.piles[index].flip()
+function flipPile(index) {
+   state.piles[index].flip();
 }
-
 
 
