@@ -33,9 +33,9 @@ stateToBoard(state)
 
  function getMoves(deck, cards){
    return {
-      flip: deck.canFlip(),
-      take: deck.cards.map((_, i) => deck.canTake(i)).map((v, i) => v && i).filter(v => v !== false),    //returns an array with card index that we can take
-      place: deck.canPlace(cards)
+      flip: !cards && deck.canFlip(),
+      take: !cards && deck.cards.map((_, i) => deck.canTake(i)).map((v, i) => v && i).filter(v => v !== false),    //returns an array with card index that we can take
+      place: cards && deck.canPlace(cards)
    };
  }
  

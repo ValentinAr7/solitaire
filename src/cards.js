@@ -108,17 +108,21 @@ export class Deck {
             throw new Error('Cannot place cards')
         }
 
-        if(Array.isArray(cards) == false){
+        if (Array.isArray(cards) == false) {
             cards = [cards];
         }
 
         this.cards.push(...cards)
 
-        this.cards.splice(index, this.size - index)    }
+        this.cards.splice(index, this.size - index)
+    }
 }
 
 export class Stock extends Deck {
-
+    canFlip() {
+        return true
+    }
+    
     canTake(index) {
         return false;
     }
@@ -184,16 +188,16 @@ export class Pile extends Deck {
     /** @type {Card | Card[]} */
 
     canPlace(cards) {
-        if(!cards){
+        if (!cards) {
             return false
         }
         if (Array.isArray(cards) == false) {
             cards = [cards];
         }
-    /** @type {Card} */
+        /** @type {Card} */
         const bottomCard = cards[0];
 
         return ((bottomCard.face == faces.King && this.size == 0)
-                || (this.size > 0 && (bottomCard.face + 1) == this.top.face && colors[bottomCard.suit] != colors[this.top.suit]));
+            || (this.size > 0 && (bottomCard.face + 1) == this.top.face && colors[bottomCard.suit] != colors[this.top.suit]));
     }
 }

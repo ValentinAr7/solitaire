@@ -28,8 +28,14 @@ export function createDeckElement(deck, index) {
     const element = document.createElement('article');
     element.className = 'deck'
 
+    let activeCards = false
+
     if(deck.moves.flip || deck.moves.place || deck.moves.take.length > 0){
-        element.classList.add('active');
+        if(deck.size == 0 || deck.moves.place){
+            element.classList.add('active');
+        } else {
+            activeCards = true
+        }
     }
 
     if(deck instanceof Stock){
@@ -55,7 +61,8 @@ export function createDeckElement(deck, index) {
     for(let i = 0; i < cards.length; i++){
         const card = cards[i]
         const top = i == cards.length - 1;
-        element.appendChild(createCard(card, top))
+        const active = activeCards && ((top && deck.canFlip()) || deck.canTake(i))
+        element.appendChild(createCard(card, top, i, active))
     }
 
     return element
@@ -65,9 +72,15 @@ export function createDeckElement(deck, index) {
 /** @param {import ('./cards.js').Card} card */
 /** @param {boolean} top */
 
-function createCard(card, top) {
+function createCard(card, top, index, active) {
     const element = document.createElement('div');
     element.classList.add('card')
+    if(active){
+    element.classList.add('active')
+
+    }
+
+    element.dataset.index = index
 
     let content = '';
 
