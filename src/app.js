@@ -1,6 +1,5 @@
 import { createDeckElement } from './dom.js';
 import { createDeck, dealDeck, shuffleDeck } from './util.js';
-import { Foundation, Waste } from './cards.js';
 
 
 const zones = {
@@ -9,10 +8,12 @@ const zones = {
    piles: document.getElementById('pile')
 }
 
-/** @type {import('./util.js').GameState} deck */
+/** @type {import('./util.js').GameState} */
 let state = null
 
-/** @type {import('./cards.js').Deck[]} deck */
+/** @type {import('./cards.js').Deck[]} */
+
+
 let deckIndex = []
 let currentMove = null;
 
@@ -21,6 +22,7 @@ document.getElementById('board').addEventListener('click', onClick)
 start()
 
 function start() {
+   currentMove = null;
 
    const deck = createDeck()
    shuffleDeck(deck)
@@ -42,13 +44,10 @@ function start() {
 /** @param {import('./cards').Deck | import('./cards'.Card[] | null)} cards*/
 
 function getMoves(deck, cards) {
-   if(cards && deck instanceof Foundation){
-      
-   }
 
    return {
       flip: !cards && deck.canFlip(),
-      take: !cards && deck.cards.map((_, i) => deck.canTake(i)).map((v, i) => v && i).filter(v => v !== false),    //returns an array with card index that we can take
+      take: !cards && deck.cards.map((_, i) => deck.canTake(i)).map((v, i) => v && i).filter(v => v !== false),
       place: cards && deck.canPlace(cards)
    };
 }
@@ -58,10 +57,14 @@ function getMoves(deck, cards) {
 function stateToBoard(state) {
    zones.stock.replaceChildren(
       createDeckElement(state.stock),
-      createDeckElement(state.waste)
+      createDeckElement(state.waste),
    )
-   zones.foundations.replaceChildren(...Object.values(state.foundations).map(createDeckElement))
-   zones.piles.replaceChildren(...state.piles.map(createDeckElement))
+   zones.foundations.replaceChildren(...Object.values(state.foundations).map(createDeckElement));
+   zones.piles.replaceChildren(...state.piles.map(createDeckElement));
+
+   if (Object.values(state.foundations).every(f => f.size == 13)) {
+      setTimeout(() => alert('You Win!'), 0);
+   }
 }
 
 function onClick(event) {        //on click event 
@@ -106,8 +109,7 @@ function onClick(event) {        //on click event
             break
 
          case 'take':
-
-            const deck = findDeck(type,index,suit)
+            const deck = findDeck(type, index, suit)
             if (type == 'piles') {
                deck = state[type][index]
             } else if (type == 'foundations') {
@@ -126,12 +128,12 @@ function onClick(event) {        //on click event
             };
             break
 
-            case 'place':
-               const target = findDeck(type, index, suit)
-               const selectedCards = currentMove.source.take(currentMove.cardIndex) 
-               target.place(selectedCards)
-               currentMove = null;
-               break
+         case 'place':
+            const target = findDeck(type, index, suit)
+            const selectedCards = currentMove.source.take(currentMove.cardIndex)
+            target.place(selectedCards)
+            currentMove = null;
+            break
       }
 
 
@@ -143,14 +145,14 @@ function onClick(event) {        //on click event
    }
 }
 
-function findDeck(type, index, suit){
-   let deck = null;  
+function findDeck(type, index, suit) {
+   let deck = null;
    if (type == 'piles') {
       deck = state[type][index]
    } else if (type == 'foundations') {
-      cards = state[type][suit];
+      deck = state[type][suit];
    } else {
-      cards = state[type]
+      deck = state[type]
    }
    return deck
 }
@@ -170,7 +172,7 @@ function flipStock() {
 }
 
 function flipPile() {
-   state.piles[deckIndex].flip()
+   state.piles[index].flip()
 }
 
 

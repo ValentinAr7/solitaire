@@ -35,20 +35,22 @@ html {
 }
 
 #pile {
-    margin-top: 100px;
+    position: absolute;
+    top: 170px;
 }
 
 .card {
     width: 50px;
     height: 20px;
     display: block;
+    border: 1px solid black;
     border-bottom: none;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     padding-left: 5px;
     background-color: white;
-    border: 1px solid black;
     position: relative;
+    user-select: none;
 
 }
 
@@ -88,11 +90,11 @@ html {
     
 }
 
-#stock .card:not(.top) {
+#stock .card:not(.top), #foundation .card:not(.top) {
     height: 2.5px;
 }
 
-.active:hover, .active:hover {
+.active:hover, .active:hover .back {
     background-color: aquamarine;
     cursor: pointer;
 }

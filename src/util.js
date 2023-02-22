@@ -30,7 +30,7 @@ export function shuffleDeck(deck) {
 
 /** 
 * @param {Deck} deck 
-* @returns {GameState } 
+* @returns {GameState} 
 */
 
 export function dealDeck(deck) {
@@ -82,7 +82,7 @@ export function dealDeck(deck) {
     }
 
     state.stock.cards.push(...deck.cards)       //put the rest of the piles into the stock
-
+    return [index, state];
 }
 
 /**

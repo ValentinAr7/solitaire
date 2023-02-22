@@ -55,7 +55,7 @@ export class Card {
 
 
 export class Deck {
-    /** @type {Card[]?} */
+    /** @param {Card[]?} */
     cards = []
 
     constructor(cards = []) {
@@ -83,7 +83,7 @@ export class Deck {
 
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
 
     canPlace(cards) {
         throw new TypeError('Cannot invoke abstract method')
@@ -93,6 +93,7 @@ export class Deck {
         if (this.canFlip() == false) {
             throw new Error('Cannot flip card')
         }
+        this.top.faceUp = true
     }
 
     take(index) {
@@ -102,7 +103,7 @@ export class Deck {
         return this.cards.splice(index, this.size - index)
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
     place(cards) {
         if (this.canPlace(cards) == false) {
             throw new Error('Cannot place cards')
@@ -113,8 +114,6 @@ export class Deck {
         }
 
         this.cards.push(...cards)
-
-        this.cards.splice(index, this.size - index)
     }
 }
 
@@ -127,7 +126,7 @@ export class Stock extends Deck {
         return false;
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
 
     canPlace(cards) {
         return false;
@@ -141,7 +140,7 @@ export class Waste extends Deck {
         return this.size > 0 && index == this.topIndex;
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
 
     canPlace(cards) {
         return false;
@@ -155,8 +154,8 @@ export class Foundation extends Deck {
     suit = null
 
     /** 
-* @param {Card[]?} suit 
-* @param {keyof suits} face
+* @param {Card[]?} cards 
+* @param {keyof suits} suit
 */
 
     constructor(cards, suit) {
@@ -167,18 +166,18 @@ export class Foundation extends Deck {
         return this.size > 0 && index == this.topIndex
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
 
     canPlace(cards) {
         if (!cards || (Array.isArray(cards) && cards.length > 1)) {
             return false
         }
 
-        const card = Array.isArray(cards ? cards[0] : cards)
+        const card = Array.isArray(cards)? cards[0] : cards
 
         return (card.suit == this.suit &&
             ((card.face == faces.Ace && this.size == 0)
-                || (this.size > 0 && (card.face + 1) == this.top.face)));
+                || (this.size > 0 && (card.face - 1) == this.top.face)));
     }
 }
 
@@ -187,7 +186,7 @@ export class Pile extends Deck {
         return this.size > 0 && this.cards[index].faceUp;
     }
 
-    /** @type {Card | Card[]} */
+    /** @param {Card | Card[]} cards */
 
     canPlace(cards) {
         if (!cards) {
