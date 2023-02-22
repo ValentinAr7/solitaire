@@ -91,3 +91,8 @@ html {
 #stock .card:not(.top) {
     height: 2.5px;
 }
+
+.active:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}
