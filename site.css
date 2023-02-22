@@ -92,7 +92,7 @@ html {
     height: 2.5px;
 }
 
-.active:hover {
+.active:hover, .active:hover .back {
     background-color: aquamarine;
     cursor: pointer;
 }
