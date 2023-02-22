@@ -81,8 +81,6 @@ function onClick(event) {        //on click event
 
       if (type == 'stock') {
          flipStock();
-      } else if(type == 'pile'){
-         flipPile(index)
       }
 
       stateToBoard(state)
@@ -103,8 +101,8 @@ function flipStock() {
    }
 }
 
-function flipPile(index){
-   state.piles[index].flip();
+function flipPile(){
+   state.piles[index].flip()
 }
 
 
