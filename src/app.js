@@ -17,14 +17,26 @@ shuffleDeck(deck)
 shuffleDeck(deck)
 shuffleDeck(deck)
 shuffleDeck(deck)
-
 console.log(deck);
 
 const {index, state} = dealDeck(deck);
-
 console.log(index, state);
 
+index.forEach(deck => deck.moves = getMoves(deck));
+
 stateToBoard(state)
+ }
+
+
+    /** @param {import('./cards').Deck} deck */
+    /** @param {import('./cards').Deck | import('./cards'.Card[] | null)} cards*/
+
+ function getMoves(deck, cards){
+   return {
+      flip: deck.canFlip(),
+      take: deck.cards.map((_, i) => deck.canTake(i)).map((v, i) => v && i).filter(v => v !== false),    //returns an array with card index that we can take
+      place: deck.canPlace(cards)
+   };
  }
  
 
@@ -60,7 +72,7 @@ stateToBoard(state)
             index = Number(deck.dataset.index)
          }
 
-         console.log('clicked');
+         console.log('clicked', type, suit, index);
 
       }
  }
