@@ -51,7 +51,7 @@ function createCard(card, top) {
         element.classList.add(colors[card.suit])
         content = `${suits[card.suit]}${faces[card.face]}`  
     } else {
-        content = `<span class="back"></span>`  
+        content = `<span class="back${top ? 'top' : ''}"></span>`  
     }
 
     if (top) {

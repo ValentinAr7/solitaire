@@ -53,6 +53,16 @@ html {
 
 .back {
     background-color: burlywood;
+    background-image: url('/assets/back.png');
+    background-size: 5px 5px;
+    display: block;
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    border-radius: 3px;
+    border: 1px solid black;
 }
 
 .red {
