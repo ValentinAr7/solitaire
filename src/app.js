@@ -17,7 +17,7 @@ let state = null
 let deckIndex = []
 let currentMove = null;
 
-document.getElementById('board').addEventListener('click', onClick)
+document.getElementById('board').addEventListener('click', onClick);
 
 start()
 
@@ -67,81 +67,68 @@ function stateToBoard(state) {
    }
 }
 
-function onClick(event) {        //on click event 
+function onClick(event) {
    let deck = null;
    let card = null;
-
    if (event.target.classList.contains('deck')) {
-      deck = event.target
+       deck = event.target;
    } else if (event.target.classList.contains('card')) {
-      deck = event.target.parentElement
-      card = event.target
-   }
-   else if (event.target.classList.contains('back')) {
-      deck = event.target.parentElement.parentElement
+       card = event.target;
+       deck = card.parentElement;
+   } else if (event.target.classList.contains('back')) {
+       deck = event.target.parentElement.parentElement;
    }
 
    if (deck != null) {
-      const action = deck.dataset.action;
-      const type = deck.dataset.type
-      let suit = '';
-      let index = -1;
-      let cardIndex = -1;
-      let cards = undefined
+       const action = deck.dataset.action;
+       const type = deck.dataset.type;
+       let suit = '';
+       let index = -1;
+       let cardIndex = -1;
+       let cards = undefined;
 
-      if (type == 'foundations') {
-         suit = deck.dataset.suit
-      } else if (type == 'piles') {
-         index = Number(deck.dataset.index)
-      }
+       if (type == 'foundations') {
+           suit = deck.dataset.suit;
+       } else if (type == 'piles') {
+           index = Number(deck.dataset.index);
+       }
 
-      if (card != null) {
-         cardIndex = Number(card.dataset.index)
-      }
+       if (card != null) {
+           cardIndex = Number(card.dataset.index);
+       }
 
-      switch (action) {
-         case 'flip':
-            if (type == 'stock') {
-               flipStock();
-            } else if (type == 'piles') {
-               flipPile(index)
-            }
-            break
+       switch (action) {
+           case 'flip':
+               if (type == 'stock') {
+                   flipStock();
+               } else if (type == 'piles') {
+                   flipPile(index);
+               }
+               currentMove = null;
+               break;
+           case 'take':
+               const deck = findDeck(type, index, suit);
+               cards = deck.cards.slice(cardIndex);
 
-         case 'take':
-            const deck = findDeck(type, index, suit)
-            if (type == 'piles') {
-               deck = state[type][index]
-            } else if (type == 'foundations') {
-               cards = state[type][suit];
-            } else {
-               cards = state[type]
-            }
-            cards = deck.cards.slice(cardIndex)
+               currentMove = {
+                   source: deck,
+                   type,
+                   index,
+                   cardIndex
+               };
+               break;
+           case 'place':
+               const target = findDeck(type, index, suit);
+               const selectedCards = currentMove.source.take(currentMove.cardIndex);
+               console.log(selectedCards);
+               target.place(selectedCards);
 
+               currentMove = null;
+               break;
+       }
 
-            currentMove = {
-               source: deck,
-               type,
-               index,
-               cardIndex
-            };
-            break
-
-         case 'place':
-            const target = findDeck(type, index, suit)
-            const selectedCards = currentMove.source.take(currentMove.cardIndex)
-            target.place(selectedCards)
-            currentMove = null;
-            break
-      }
-
-
-      console.log(action, type, index, cardIndex);
-      console.log(currentMove);
-
-      deckIndex.forEach(deck => deck.moves = getMoves(deck))
-      stateToBoard(state)
+       deckIndex.forEach(deck => deck.moves = getMoves(deck, cards));
+       stateToBoard(state);
    }
 }
 
