@@ -10,7 +10,7 @@ html {
 }
 
 #board {
-    width: 700px;
+    width: 650px;
 }
 
 .clearfix::after {
@@ -26,20 +26,25 @@ html {
     min-width: 80px;
     min-height: 105px;
     padding: 15px;
+    margin: 1px;
+    margin-top: 5px;
     vertical-align: top;
 }
 
 #stock {
     float: left;
+    margin-left: 5px;
 }
 
 #foundation {
     float: right;
+    right: 50px;
 }
 
 #pile {
     position: absolute;
-    top: 170px;
+    top: 220px;
+    left: 12px;
 }
 
 .card {
